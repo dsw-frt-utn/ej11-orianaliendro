@@ -1,4 +1,6 @@
-﻿namespace Dsw2026Ej11.Collections;
+﻿using Dsw2026Ej11.Domain;
+
+namespace Dsw2026Ej11.Collections;
 
 /*
  * Para cada punto crear un método que permita:
@@ -16,4 +18,88 @@
  */
 public class CasoLinq
 {
+    private List<Libro> libros;
+
+    public CasoLinq()
+    {
+        libros = new List<Libro>(); 
+    }
+    //metodo para obtener el primer libro.
+    public Libro GetPrimero()
+    {
+        return libros.First();  
+    }
+
+    // metodo para obtener el ultimo libro.
+
+    public Libro GetUltimo()
+    {
+        return libros.Last();
+    }
+
+    // este metodo es para la suma.
+
+    public decimal GetTotalPrecios()
+    {
+        return libros.Sum(l => l.Precio);
+    }
+
+    //metodo para obtener el promedio.
+    public decimal GetPromedioPrecios()
+    {
+        return libros.Average(l => l.Precio);
+    }
+
+    //metodo para los libros con la id mayor a 5.
+
+    public List<Libro> GetListById()
+    {
+        return libros
+            .Where(l => l.Id > 15)
+            .ToList();
+    }
+
+    //metodo para la  Lista con título y precio.
+    public List<string> GetLibros()
+    {
+        return libros
+            .Select(l => $"{l.Titulo} - ${l.Precio}")
+            .ToList();
+    }
+
+    //metodo para Libro con mayor precio.
+    public Libro GetMayorPrecio()
+    {
+        return libros
+            .OrderByDescending(l => l.Precio)
+            .First();
+    }
+
+    //metodo para Libro con menor precio.
+    public Libro GetMenorPrecio()
+    {
+        return libros
+            .OrderBy(l => l.Precio)
+            .First();
+    }
+
+    //metodo para los Libros con precio mayor al promedio.
+    public List<Libro> GetMayorPromedio()
+    {
+        decimal promedio = libros.Average(l => l.Precio);
+
+        return libros
+            .Where(l => l.Precio > promedio)
+            .ToList();
+    }
+
+    //metodo para los Libros ordenados por título descendente.
+    public List<Libro> GetOrdenadosDesc()
+    {
+        return libros
+            .OrderByDescending(l => l.Titulo)
+            .ToList();
+    }
+
+
 }
